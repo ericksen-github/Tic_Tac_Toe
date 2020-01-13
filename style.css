@@ -1,6 +1,18 @@
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
 .boxes {
     border: solid 1px black; 
     float: left;
+    text-align: center; 
+    line-height: 200px;
+    font-size: 100px; 
 }
 
 #boardContainer{
@@ -14,7 +26,6 @@
     cursor: crosshair;
 }
 
-#container > div {
-    box-sizing: border-box;
-    filter: saturate(0.9);
+button {
+    margin-top: 40px; 
 }
