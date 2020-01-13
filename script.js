@@ -1,10 +1,10 @@
 let currentMark = "X"; 
 let boardArray = []; 
 
-// sets container size, creates divs to fill container, gives divs listener, adds divs
+// populates inital grid, sets ids, creates listeners, and initializes boardArray size
 function makeBoard() {
 
-    let boxSize = 200 + "px";
+    let boxSize = 150 + "px";
     let container = document.getElementById("boardContainer");
 
     container.style.gridTemplateColumns = `repeat(3, 1fr)`;
@@ -73,5 +73,9 @@ function declareWinner(winner) {
     for (i = 0; i < 9; i++) {
         document.getElementById("div" + i).removeEventListener("click", markBox);
     }
+}
+
+function createPlayers() {
+    document.getElementById("playerForm").style.display = "block"; 
 }
 makeBoard(); 

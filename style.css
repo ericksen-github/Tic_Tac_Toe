@@ -8,19 +8,26 @@ h2 {
 }
 
 .boxes {
-    border: solid 1px black; 
     float: left;
     text-align: center; 
-    line-height: 200px;
-    font-size: 100px; 
+    line-height: 150px;
+    font-size: 75px; 
+}
+
+#div0, #div1, #div3, #div4, #div6, #div7 {
+    border-right: solid 5px black; 
+}
+
+#div0, #div1, #div2, #div3, #div4, #div5 {
+    border-bottom: solid 5px black; 
 }
 
 #boardContainer{
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(16, 1fr);
-    width: 600px;
-    height: 600px;
+    width: 450px;
+    height: 450px;
     margin: auto;
     background: rgb(255, 255, 255);
     cursor: crosshair;
@@ -28,4 +35,13 @@ h2 {
 
 button {
     margin-top: 40px; 
+}
+
+#playerForm {
+    position: absolute;
+    background-color: rgb(255, 255, 255); 
+    border-radius: 5px;
+    top: 125px; 
+    z-index: 3;
+    display: none; 
 }

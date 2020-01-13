@@ -9,7 +9,22 @@
     <h1>Tic Tac Toe</h1>
     <h2 id = "displayText">Good Luck!</h2>
     <div id = "boardContainer"></div>
+    <div id = "playerForm">
+        <div id = "formTitle">Choose your player names!</div>
+        <div id = "inputsContainer">
+            <input type = "text" id = "playerOneName" placeholder="Player One">
+            <input type = "text" id = "playerTwoName" placeholder="Player Two">
+            <div>Play against the computer?</div>
+            <input type = "checkbox" id = "checkbox">
+            <div id = "formButtons">
+                <div class = "formButton" id = "playButton" onclick = "startGame()">Lets Play!</div>
+                <div class = "formButton" id = "cancelButton" onclick = "hideForm()">Cancel</div>
+            </div>
+        </div>
+    </div>
+    <button id = "selectPlayers" onclick = "createPlayers()">Select Players</button>
     <button id = "resetBoard" onclick = "resetGrid()">Reset Board</button>
+
 </body>
 <script src="script.js"></script>
 </html>
