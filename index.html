@@ -7,24 +7,22 @@
 </head>
 <body>
     <h1>Tic Tac Toe</h1>
-    <h2 id = "displayText">Good Luck!</h2>
+    <h2 id = "displayText">Enter player names and then press start!</h2>
     <div id = "boardContainer"></div>
-    <div id = "playerForm">
-        <div id = "formTitle">Choose your player names!</div>
-        <div id = "inputsContainer">
+    <div id = "inputsContainer">
+        <div id = "textBoxContainer">
             <input type = "text" id = "playerOneName" placeholder="Player One">
             <input type = "text" id = "playerTwoName" placeholder="Player Two">
-            <div>Play against the computer?</div>
-            <input type = "checkbox" id = "checkbox">
-            <div id = "formButtons">
-                <div class = "formButton" id = "playButton" onclick = "startGame()">Lets Play!</div>
-                <div class = "formButton" id = "cancelButton" onclick = "hideForm()">Cancel</div>
-            </div>
+        </div>
+        <div id = "checkBoxContainer">
+            <div id = "checkBoxText">Play against the computer?</div>
+            <input type = "checkbox" id = "checkbox" onclick="gameBoard.disablePlayerTwo()">
+        </div>
+        <div id = "buttonsContainer">
+            <button id = "playButton" onclick = "gameBoard.startGame()">Start New Game!</button>
+            <button id = "endGameButton" onclick = "gameBoard.endGame()">End Current Game</button>
         </div>
     </div>
-    <button id = "selectPlayers" onclick = "createPlayers()">Select Players</button>
-    <button id = "resetBoard" onclick = "resetGrid()">Reset Board</button>
-
 </body>
 <script src="script.js"></script>
 </html>
