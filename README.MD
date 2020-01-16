@@ -2,6 +2,7 @@
 
 Tic-Tac-Toe is a project assigned through The Odin Project to familiarize ourselves with modules and 
 to keep getting used to coding. 
+
 [Project: Tic-Tac-Toe](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript?ref=lnav)
 
 ## Contributing
