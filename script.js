@@ -65,9 +65,9 @@ const gameBoard = (() => { // module to hide all of my functions
 
     function markBox(boxA, boxB) {
         let check; 
-        if (!isNaN(boxA)) {                                  // if computer is player 2, it will pass a number
+        if (!isNaN(boxA)) {                                        // if computer is player 2, it will pass a number
             boardArray[boxA][boxB] = currentMark;                  // to markBox. this checks if its a number and then
-            boxA = document.getElementById("div" + boxA + boxB);     // uses that number to target the correct box
+            boxA = document.getElementById("div" + boxA + boxB);   // uses that number to target the correct box
             check = false; 
         } else {
             boxB = boxA.target.id.slice(4);
@@ -76,10 +76,9 @@ const gameBoard = (() => { // module to hide all of my functions
             boxA = document.getElementById("div" + boxA + boxB); 
             check = true; 
         }
-        boxA.innerHTML = currentMark;                        // sets the targeted box to the current mark
+        boxA.innerHTML = currentMark;                      // sets the targeted box to the current mark
         boxA.removeEventListener("click", markBox); 
-        
-        swapMark(check);                                   // passes true or false last play was a human or computer
+        swapMark(check);                                   // passes true or false if last play was a human or computer
     } 
 
     function swapMark(check) {  // swaps the current mark and displays who's turn it is to go
