@@ -15,11 +15,11 @@ h2 {
     font-size: 75px; 
 }
 
-#div0, #div1, #div3, #div4, #div6, #div7 {
+#div00, #div01, #div10, #div11, #div20, #div21 {
     border-right: solid 5px black; 
 }
 
-#div0, #div1, #div2, #div3, #div4, #div5 {
+#div00, #div01, #div02, #div10, #div11, #div12 {
     border-bottom: solid 5px black; 
 }
 

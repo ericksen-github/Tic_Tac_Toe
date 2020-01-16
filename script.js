@@ -1,5 +1,9 @@
 const gameBoard = (() => { // module to hide all of my functions
-    let boardArray = [];
+    let boardArray = [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+    ];
     let currentMark = "X"; 
     let playerOne; 
     let playerTwo; 
@@ -11,22 +15,25 @@ const gameBoard = (() => { // module to hide all of my functions
         container.style.gridTemplateColumns = `repeat(3, 1fr)`;
         container.style.gridTemplateRows = `repeat(3, 1fr)`;
 
-        for (i = 0; i < 9; i++) {
-            let div = document.createElement("div");
-            div.style.width = boxSize;
-            div.style.height = boxSize;
-            div.classList.add("boxes");
-            div.setAttribute("id", "div" + i);
-            container.appendChild(div);
-            boardArray.push(""); 
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
+                let div = document.createElement("div");
+                div.style.width = boxSize;
+                div.style.height = boxSize;
+                div.classList.add("boxes");
+                div.setAttribute("id", "div" + i + j);
+                container.appendChild(div);
+            }
         };
     };
 
     function resetGrid() {  // sets all boxes to empty string, removes listeners, clears array, resets mark
-        for (i = 0; i < 9; i++) {
-            document.getElementById("div" + i).innerHTML = ""; 
-            document.getElementById("div" + i).addEventListener("click", markBox);
-            boardArray[i] = ""; 
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++){
+                document.getElementById("div" + i + j).innerHTML = ""; 
+                document.getElementById("div" + i + j).addEventListener("click", markBox);
+                boardArray[i][j] = ""; 
+            }
         }
         currentMark = "X"; 
     }
@@ -56,20 +63,21 @@ const gameBoard = (() => { // module to hide all of my functions
         declareWinner("end"); 
     }
 
-    function markBox(box) {
+    function markBox(boxA, boxB) {
         let check; 
-        if (!isNaN(box)) {                                  // if computer is player 2, it will pass a number
-            boardArray[box] = currentMark;                  // to markBox. this checks if its a number and then
-            box = document.getElementById("div" + box);     // uses that number to target the correct box
+        if (!isNaN(boxA)) {                                  // if computer is player 2, it will pass a number
+            boardArray[boxA][boxB] = currentMark;                  // to markBox. this checks if its a number and then
+            boxA = document.getElementById("div" + boxA + boxB);     // uses that number to target the correct box
             check = false; 
         } else {
-            let divID = box.target.id.slice(3);             // if onclick event causes markBox, this grabs the div id
-            boardArray[divID] = currentMark;                // and uses that number to store in the array
-            box = document.getElementById("div" + divID); 
+            boxB = boxA.target.id.slice(4);
+            boxA = boxA.target.id.slice(3, 4);                 // if onclick event causes markBox, this grabs the div id
+            boardArray[boxA][boxB] = currentMark;              // and uses that number to store in the array
+            boxA = document.getElementById("div" + boxA + boxB); 
             check = true; 
         }
-        box.innerHTML = currentMark;                        // sets the targeted box to the current mark
-        box.removeEventListener("click", markBox); 
+        boxA.innerHTML = currentMark;                        // sets the targeted box to the current mark
+        boxA.removeEventListener("click", markBox); 
         
         swapMark(check);                                   // passes true or false last play was a human or computer
     } 
@@ -87,6 +95,7 @@ const gameBoard = (() => { // module to hide all of my functions
         }
         checkWin();             // checks if player one move wins before computer moves
         computerPlay();    
+        console.log(boardArray)
     }
 
     function computerPlay() {
@@ -94,12 +103,13 @@ const gameBoard = (() => { // module to hide all of my functions
             document.getElementById("checkbox").disabled == true) { // has not ended
             let counter = 0; 
             while (true) {                               
-                let num = Math.floor(Math.random() * 9); // randomly finds a number and checks that array index
-                if (counter == 9) {                      // if the array index is empty, marks that box w/ num
-                    break;                               // if all indexes are full, breaks while
-                }
-                if (boardArray[num] == "") {
-                    markBox(num);
+                let numA = Math.floor(Math.random() * 3);
+                let numB = Math.floor(Math.random() * 3);  // randomly finds a number and checks that array index
+                if (counter == 20) {                       // if the array index is empty, marks that box w/ num
+                    break;                                 // if all indexes are full, breaks while.
+                }                                          // sometimes, the same index is generated randomly more
+                if (boardArray[numA][numB] == "") {        // than once. counter at 20 to reduce chance that any index
+                    markBox(numA, numB);                   // is missed.
                     break; 
                 }
                 counter++; 
@@ -110,29 +120,32 @@ const gameBoard = (() => { // module to hide all of my functions
 
     function checkWin() {   // compares all possible winning configurations and 
                             // passes the winning row mark to declareWinner
-        if (boardArray[0] == boardArray[1] && boardArray[1] == boardArray[2] && boardArray[0] != "") {
-                declareWinner(boardArray[0]); 
-        } else if (boardArray[3] == boardArray[4] && boardArray[4] == boardArray[5] && boardArray[3] != "") {
-                declareWinner(boardArray[3]);
-        } else if (boardArray[6] == boardArray[7] && boardArray[7] == boardArray[8] && boardArray[6] != "") {
-                declareWinner(boardArray[6]); 
-        } else if (boardArray[0] == boardArray[3] && boardArray[3] == boardArray[6] && boardArray[0] != "") {
-                declareWinner(boardArray[0]); 
-        } else if (boardArray[1] == boardArray[4] && boardArray[4] == boardArray[7] && boardArray[1] != "") {
-                declareWinner(boardArray[1]); 
-        } else if (boardArray[2] == boardArray[5] && boardArray[5] == boardArray[8] && boardArray[2] != "") {
-            declareWinner(boardArray[2]); 
-        } else if (boardArray[0] == boardArray[4] && boardArray[4] == boardArray[8] && boardArray[0] != "") {
-            declareWinner(boardArray[0]);
-        } else if (boardArray[2] == boardArray[4] && boardArray[4] == boardArray[6] && boardArray[2] != "") {
-            declareWinner(boardArray[2]); 
+        if (boardArray[0][0] == boardArray[0][1] && boardArray[0][1] == boardArray[0][2] && boardArray[0][0] != "") {
+                declareWinner(boardArray[0][0]); 
+        } else if (boardArray[1][0] == boardArray[1][1] && boardArray[1][1] == boardArray[1][2] && boardArray[1][0] != "") {
+                declareWinner(boardArray[1][0]);
+        } else if (boardArray[2][0] == boardArray[2][1] && boardArray[2][1] == boardArray[2][2] && boardArray[2][0] != "") {
+                declareWinner(boardArray[2][0]); 
+        } else if (boardArray[0][0] == boardArray[1][0] && boardArray[1][0] == boardArray[2][0] && boardArray[0][0] != "") {
+                declareWinner(boardArray[0][0]); 
+        } else if (boardArray[0][1] == boardArray[1][1] && boardArray[1][1] == boardArray[2][1] && boardArray[0][1] != "") {
+                declareWinner(boardArray[0][1]); 
+        } else if (boardArray[0][2] == boardArray[1][2] && boardArray[1][2] == boardArray[2][2] && boardArray[0][2] != "") {
+            declareWinner(boardArray[0][2]); 
+        } else if (boardArray[0][0] == boardArray[1][1] && boardArray[1][1] == boardArray[2][2] && boardArray[0][0] != "") {
+            declareWinner(boardArray[0][0]);
+        } else if (boardArray[0][2] == boardArray[1][1] && boardArray[1][1] == boardArray[2][0] && boardArray[0][2] != "") {
+            declareWinner(boardArray[0][2]); 
         } else {
-            for (i = 0, j = 0; i < boardArray.length; i++) {  // makes sure all array indexes are filled before
-                if (boardArray[i] != "") {                    // declaring match a tie
-                    j++;            
+            let k = 0; 
+            for (i = 0; i < 3; i++) {
+                for (j = 0; j < 3; j++) {                         // makes sure all array indexes are filled before
+                    if (boardArray[i][j] != "") {                 // declaring match a tie
+                        k++;            
+                    }
                 }
-            }
-            if (j == 9) {
+            };
+            if (k == 9) {
                 declareWinner("Tie");
             }
         }
@@ -149,8 +162,10 @@ const gameBoard = (() => { // module to hide all of my functions
             document.getElementById("displayText").innerHTML = "It's a tie!"; 
         }
         
-        for (i = 0; i < 9; i++) {   // removes listeners from boxes to prevent marks after game ended
-            document.getElementById("div" + i).removeEventListener("click", markBox);
+        for (i = 0; i < 3; i++) {      // removes listeners from boxes to prevent marks after game ended
+            for (j = 0; j < 3; j++) {
+                document.getElementById("div" + i + j).removeEventListener("click", markBox);
+            }
         }
         document.getElementById("endGameButton").style.display = "none"; // hides end game button
         document.getElementById("checkbox").disabled = false; // re enables checkbox for computer. checkbox value
