@@ -94,7 +94,6 @@ const gameBoard = (() => { // module to hide all of my functions
         }
         checkWin();             // checks if player one move wins before computer moves
         computerPlay();    
-        console.log(boardArray)
     }
 
     function computerPlay() {
